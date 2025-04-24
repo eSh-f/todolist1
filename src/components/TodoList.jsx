@@ -1,7 +1,8 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 
-const TodoList = ({ tasks, handleRemoveTask, handleDoneTask }) => {
+const TodoList = React.memo(({ tasks, handleRemoveTask, handleDoneTask }) => {
+  console.log("list");
   return (
     <>
       {tasks.length ? (
@@ -22,6 +23,6 @@ const TodoList = ({ tasks, handleRemoveTask, handleDoneTask }) => {
       )}
     </>
   );
-};
+});
 
 export default TodoList;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import MyInput from "./UI/MyInput/MyInput";
 import MyButton from "./UI/MyButton/MyButton";
 import TodoList from "./TodoList";
@@ -10,22 +10,32 @@ const Todo = () => {
   ]);
   const [value, setValue] = useState("");
 
-  const handleAddTask = () => {
-    setTasks([...tasks, { id: Date.now(), title: value, isDone: false }]);
-    setValue("");
-  };
+  const handleAddTask = useCallback(() => {
+    console.log("ADD");
+    if (value.length) {
+      setTasks([...tasks, { id: Date.now(), title: value, isDone: false }]);
+      setValue("");
+    }
+  }, [value]);
 
-  const handleRemoveTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
-  };
-
-  const handleDoneTask = (id) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, isDone: !task.isDone } : task,
-      ),
-    );
-  };
+  const handleRemoveTask = useCallback(
+    (id) => {
+      console.log("delete");
+      setTasks(tasks.filter((task) => task.id !== id));
+    },
+    [tasks],
+  );
+  const handleDoneTask = useCallback(
+    (id) => {
+      console.log("done");
+      setTasks(
+        tasks.map((task) =>
+          task.id === id ? { ...task, isDone: !task.isDone } : task,
+        ),
+      );
+    },
+    [tasks],
+  );
 
   return (
     <div>
