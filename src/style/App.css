@@ -18,3 +18,7 @@
     margin: 5px;
     padding: 5px;
 }
+
+.line-through {
+    text-decoration: line-through;
+}
