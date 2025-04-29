@@ -28,8 +28,8 @@ const Todo = () => {
   const handleDoneTask = useCallback(
     (id) => {
       console.log("done");
-      setTasks(
-        tasks.map((task) =>
+      setTasks((prevState) =>
+        prevState.map((task) =>
           task.id === id ? { ...task, isDone: !task.isDone } : task,
         ),
       );
@@ -37,15 +37,15 @@ const Todo = () => {
     [tasks],
   );
 
+  const handleInputChange = useCallback((e) => {
+    setValue(e.target.value);
+  }, []);
+
   return (
     <div>
       <h1 style={{ textAlign: "center" }}> TODO LIST</h1>
       <div>
-        <MyInput
-          type="text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
+        <MyInput type="text" value={value} onChange={handleInputChange} />
         <MyButton onClick={handleAddTask}>Добавить задачу</MyButton>
         <TodoList
           handleDoneTask={handleDoneTask}
